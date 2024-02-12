@@ -6,7 +6,7 @@ public class Phone {
 
     public int charge_level = 0;
 
-    public boolean isFullChange() {
+    public boolean isFullCharged() {
         return charge_level == 100;
     }
 
@@ -18,7 +18,7 @@ public class Phone {
         return charge_level < 100;
     }
 
-    public boolean canDischarging() {
+    public boolean canBeDischarged() {
         return charge_level > 10;
     }
 

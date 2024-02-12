@@ -27,7 +27,7 @@ public class PhonesCharging {
                 phones[i].charging();
                 System.out.println(phones[i].model_name + " phone is charging, charge level is " + phones[i].charge_level);
 
-                if (phones[i].isFullChange()) {
+                if (phones[i].isFullCharged()) {
                     System.out.println(phones[i].model_name + " phone has full charged");
                 }
             }
@@ -36,7 +36,7 @@ public class PhonesCharging {
 
     public static void dischargePhones(Phone[] phones) {
         for (int i = 0; i < phones.length; i++) {
-            while (phones[i].canDischarging()) {
+            while (phones[i].canBeDischarged()) {
                 phones[i].discharging();
                 System.out.println(phones[i].model_name + " phone is discharging, charge level is " + phones[i].charge_level);
 

@@ -20,4 +20,12 @@ public class Phone {
         }
 
     }
+
+    private void incLvl(int incLevel) {
+        if ((charge_level + incLevel) > 100) {
+            charge_level = 100;
+        } else {
+            charge_level = charge_level + incLevel;
+        }
+    }
 }

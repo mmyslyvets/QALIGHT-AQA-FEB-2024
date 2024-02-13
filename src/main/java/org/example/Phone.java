@@ -25,9 +25,9 @@ public class Phone {
     public void charging() {
         boolean hasSuperCharge = charge_level < 80;
         if (hasSuperCharge) {
-            incLvl(10);
+            charge_level = charge_level + 10;
         } else {
-            incLvl(1);
+            charge_level = charge_level + 1;
         }
     }
 
@@ -38,11 +38,4 @@ public class Phone {
         charge_level = charge_level - 1;
     }
 
-    private void incLvl(int incLevel) {
-        if ((charge_level + incLevel) > 100) {
-            charge_level = 100;
-        } else {
-            charge_level = charge_level + incLevel;
-        }
-    }
 }

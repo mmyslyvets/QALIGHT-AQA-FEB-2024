@@ -3,9 +3,15 @@ package org.example;
 public class Car {
 
     public Engine engine;
-    public String color;
 
     public int speed;
+    public String color;
+
+    public Car(String color, String engineVolume) {
+        this.color = color;
+        engine = new Engine(engineVolume);
+        System.out.println("Construction of car " + color + " is done");
+    }
 
     public void accelerate() {
         if (speed <= 100) {

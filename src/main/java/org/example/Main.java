@@ -2,16 +2,21 @@ package org.example;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public String value;
 
-//        Car[] cars = new Car[7];
-//        cars[0] = new Car("red", "2.0");
-//        cars[1] = new Car("green", "1.0");
-//        cars[2] = new Car("yellow", "1.8");
-//        cars[3] = new Car("blue", "3.0");
-//        cars[4] = new Car("black", "1.2");
-//        cars[5] = new Car("purple", "3.0");
-//        cars[6] = new Car("white", "5.0");
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(Car.BRAND);
+        Car.smth();
+
+        Car[] cars = new Car[7];
+        cars[0] = new Car("red", "2.0");
+        cars[1] = new Car("green", "1.0");
+        cars[2] = new Car("yellow", "1.8");
+        cars[3] = new Car("blue", "3.0");
+        cars[4] = new Car("black", "1.2");
+        cars[5] = new Car("purple", "3.0");
+        cars[6] = new Car("white", "5.0");
+
 
 //        for (int i = 0; i < cars.length; i++) {
 //            if (i > 3) {

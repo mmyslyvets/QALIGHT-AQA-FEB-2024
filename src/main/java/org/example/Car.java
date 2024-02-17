@@ -2,10 +2,16 @@ package org.example;
 
 public class Car {
 
+    public final static String BRAND = "Ford";
+
     public Engine engine;
 
     public int speed;
     public String color;
+
+    public static void smth() {
+        System.out.println("Any car can do this");
+    }
 
     public Car(String color, String engineVolume) {
         this.color = color;

@@ -16,6 +16,7 @@ public class Main {
         cars[4] = new Car("black", "1.2");
         cars[5] = new Car("purple", "3.0");
         cars[6] = new Car("white", "5.0");
+        cars[6] = new Car("orange", "1.0");
 
 
 //        for (int i = 0; i < cars.length; i++) {

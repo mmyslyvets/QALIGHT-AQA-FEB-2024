@@ -11,6 +11,7 @@ public class Car {
 
     public static void smth() {
         System.out.println("Any car can do this");
+        System.out.println("this is my homework3");
         System.out.println("this is my homework");
         System.out.println("this is my homework2");
     }

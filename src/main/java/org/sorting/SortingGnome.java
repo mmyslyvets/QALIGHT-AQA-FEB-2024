@@ -30,7 +30,7 @@ public class SortingGnome {
     private static void sortGnomes(int[] gnome) {
         for (int i = 0; i < gnome.length; i++) {
             if(i == 0){
-                i = i + 1;
+                continue;
             }
             else if (gnome[i] < gnome[i - 1]) {
                 int temp = gnome[i];

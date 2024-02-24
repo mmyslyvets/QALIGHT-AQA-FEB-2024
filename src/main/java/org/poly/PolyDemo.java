@@ -5,7 +5,7 @@ public class PolyDemo {
         Tesla tesla = new Tesla();
         TeslaS teslas = new TeslaS();
         BMW bmw = new BMW();
-        Ford ford = new Ford();
+        Ford ford = new Ford("1234567");
 
         useCar(tesla);
         useCar(ford);
@@ -14,7 +14,6 @@ public class PolyDemo {
     }
 
     public static void useCar(ICar iCar){
-        iCar.turnLeft();
-        iCar.turnRight();
+        iCar.goTo();
     }
 }

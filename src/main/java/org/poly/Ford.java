@@ -3,6 +3,10 @@ package org.poly;
 import org.sorting.Car;
 
 public class Ford extends Car implements ICar, ITransport {
+    public Ford(String serialNumber) {
+        super(serialNumber);
+    }
+
     public void turnLeft() {
         System.out.println("Ford turns Left");
     }
@@ -15,6 +19,4 @@ public class Ford extends Car implements ICar, ITransport {
         System.out.println("Stopping at " + stationName);
     }
 
-    public void goTo() {
-    }
 }

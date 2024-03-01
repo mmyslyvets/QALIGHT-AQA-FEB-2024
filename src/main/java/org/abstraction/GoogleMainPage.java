@@ -13,4 +13,9 @@ public class GoogleMainPage extends AbstractPage {
     public void openGoogleApps() {
         System.out.println("Open google apps from Main page");
     }
+
+    public void smth(String s){}
+    public void smth(Object s){}
+    public void smth(Object s, String s1){}
+    public void smth(String s1, Object o){}
 }

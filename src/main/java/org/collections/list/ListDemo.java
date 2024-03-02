@@ -7,6 +7,16 @@ import java.util.List;
 
 public class ListDemo {
 
+    /**
+     * linked list:
+     *                                      !
+     * [start-of-list]-[a]-[b]-....-[c]-[d]-[e]-[end-of-list]
+     * [start-of-list]-[a]-[b]-....-[c]-[d]-[f]-[e]-[end-of-list]
+     * array list:
+     * [0:"a"],[1:"b"],[2:"f"],[2+1:"c"],.....,[999999999998+1:"d"],[999999999999+1:"e"]
+     * @param args
+     */
+
     public static void main(String[] args) {
         List<String> aList = new ArrayList<>();
         List<String> aList2 = new ArrayList<>();
@@ -60,6 +70,7 @@ public class ListDemo {
     }
 
     public static void smth(List<String> sList) {
-
+        String s = ((ArrayList<String>) sList).get(0);
+        String s2 = ((LinkedList<String>) sList).get(0);
     }
 }

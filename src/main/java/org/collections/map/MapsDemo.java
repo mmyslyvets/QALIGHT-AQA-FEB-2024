@@ -18,8 +18,8 @@ public class MapsDemo {
         map2.put("key_4", "value_4");
         map2.put("key_5", "value_5");
 
-        System.out.println(map.getOrDefault("key_1", "default_value_1"));
-        System.out.println(map.getOrDefault("key_6", "default_value_6"));
+       // System.out.println(map.getOrDefault("key_1", "default_value_1"));
+      //  System.out.println(map.getOrDefault("key_6", "default_value_6"));
 
 
 //        map.putAll(map2);
@@ -42,9 +42,15 @@ public class MapsDemo {
 //        map.put(null, "a");
 //        System.out.println(map.get(null));
 //
-//        for (String s : map.keySet()) {
-//            System.out.println(s);
-//        }
+        for (String s : map.keySet()) {
+            System.out.println(s);
+        }
+
+        System.out.println("------");
+
+        for (Map.Entry e : map.entrySet()){
+            System.out.println(e);
+        }
 //
 //        map.replace("key_5", "value_5");
 //        System.out.println(map.get("key_5"));

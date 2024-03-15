@@ -1,45 +1,62 @@
 package org.collections.web;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.collections.web.driver.WebDriverFactory;
+import org.collections.web.page.GooglePage;
+import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.bidi.Network;
+import org.openqa.selenium.devtools.DevTools;
 
-import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 public class SeleniumDemo {
 
-    private static final String COOKIES_FORM_XPATH =
-            "//a[contains(@href,'https://policies.google.com/technologies/cookies')]/../../../..//button";
+    //TODO: HOMEWORK
+    //TODO: 1. Make Finnair a page object
+    //TODO: 2. Add method that clicks "login" button
+    //TODO: 3. Click email, click password, click "keep me logged in"
+    //TODO: 4. Confirm error messages appear for login and pwd
 
     public static void main(String[] args) {
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = WebDriverFactory.getDriver();
+
+        GooglePage googlePage = new GooglePage(driver);
+        WikiPage wikiPage = new WikiPage(driver);
+
+//        DevTools devTools = (DevTools) driver;
+
+        Random random = new Random();
+        GoogleActions action;
+        if (random.nextBoolean()) {
+            action = GoogleActions.REGULAR_SEARCH;
+        } else {
+            action = GoogleActions.LUCKY_SEARCH;
+        }
+
         try {
-            driver.get("https://google.com/");
-            List<WebElement> cookieButtons = driver.findElements(By.xpath(COOKIES_FORM_XPATH));
-            if (!cookieButtons.isEmpty()) {
-                cookieButtons.get(3).click();
-            }
-            WebElement searchInput = driver.findElement(By.name("q"));
-            searchInput.sendKeys("Ben Affleck");
-            searchInput.sendKeys(Keys.ENTER);
+            googlePage.loadPage();
+            googlePage.acceptCookiesIfPresent();
+            googlePage.setSearchText("Ben Affleck");
 
-            List<WebElement> searchHeaders = new WebDriverWait(driver, Duration.ofSeconds(5L))
-                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//a/h3"), 2));
-
-            for (WebElement e : searchHeaders) {
-                if (e.getText().contains("Ben Affleck")) {
-                    System.out.println("Ben found!");
-                    break;
+            if (action.equals(GoogleActions.REGULAR_SEARCH)) {
+                googlePage.performSearch();
+                List<WebElement> searchHeaders = googlePage.getSearchHeaders();
+                for (WebElement e : searchHeaders) {
+                    if (e.getText().contains("Ben Affleck")) {
+                        System.out.println("Ben found!");
+                        break;
+                    }
                 }
+            } else if (action.equals(GoogleActions.LUCKY_SEARCH)) {
+                googlePage.feelingLucky();
+                System.out.println("Wiki URL: " + wikiPage.getCurrentUrl());
+                wikiPage.navigateBack();
+                System.out.println("Google URL: " + googlePage.getCurrentUrl());
+            } else {
+                throw new RuntimeException("No action selected");
             }
-//            ExpectedConditions.visibilityOfElementLocated()
-//            ExpectedConditions.urlToBe()
-            //TODO: got to finnair, accept cookies, search for barcelona, confirm url is https://www.finnair.com/en/search?query=Bacelon
         } finally {
             driver.quit();
         }

@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<!--BeforeSuite-->
+<suite name="Selenium" verbose="1">
+    <!--BeforeTest-->
+    <test name="Regression Google">
+        <classes>
+            <!--BeforeClass-->
+            <!--BeforeMethod-->
+            <class name="org.web.testng.GoogleTest"/>
+            <class name="org.web.testng.AlloUaTest"/>
+        </classes>
+    </test>
+    <!--BeforeTest-->
+    <test name="Regression Finnair">
+        <classes>
+            <!--BeforeMethod-->
+            <class name="org.web.testng.FinnairTest"/>
+        </classes>
+    </test>
+</suite>
+        <!--AfterSuite-->

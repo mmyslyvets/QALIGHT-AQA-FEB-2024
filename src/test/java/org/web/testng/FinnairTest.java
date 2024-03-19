@@ -33,7 +33,7 @@ public class FinnairTest extends AbstractNGTest {
         if (finnAirPage.isElementVisible()) {
             finnAirPage.coockieModalClose();
         }
-        finnAirPage.searchAndCheck("barcelona");
+        finnAirPage.search("barcelona");
         String currentUrl;
         currentUrl = finnAirPage.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("barcelona"),
@@ -41,7 +41,7 @@ public class FinnairTest extends AbstractNGTest {
     }
 
     @Test
-    public void testLoginErrors(){
+    public void testLoginErrors() {
         googlePage.setSearchText("finnair");
         googlePage.feelingLucky();
         finnAirPage.localSetUp();

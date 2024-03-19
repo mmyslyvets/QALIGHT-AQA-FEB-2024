@@ -20,8 +20,8 @@ public class TestFinairWithExeption {
     static WebDriver driver = new ChromeDriver();
 
     public static void main(String[] args) {
-        testSearchResult("https://www.finnair.com/en", "barcelona");
-    //    testSearchResultWithCondition("https://www.finnair.com/en", "barcelona", COOKIES_BUTTON_FORM_XPATH);
+       // testSearchResult("https://www.finnair.com/en", "barcelona");
+        testSearchResultWithCondition("https://www.finnair.com/en", "barcelona", COOKIES_BUTTON_FORM_XPATH);
     }
 
 

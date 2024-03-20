@@ -52,6 +52,11 @@ public class FinnAirPage extends AbstractPage {
         searchField.sendKeys(Keys.ENTER);
     }
 
+    public void searcResultsCheck(){
+       // List<WebElement> searchResults = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.numberOfElementsToBeMoreThan(SEARCH_RESULTS, 2));
+        WebElement searchResults = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfElementLocated(SEARCH_RESULTS));
+    }
+
     public boolean isElementVisible() {
         try {
             WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(20))).until(ExpectedConditions.presenceOfElementLocated(COOKIES_BUTTON_FORM_XPATH));

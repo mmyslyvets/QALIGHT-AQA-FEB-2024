@@ -34,6 +34,7 @@ public class FinnairTest extends AbstractNGTest {
             finnAirPage.coockieModalClose();
         }
         finnAirPage.search("barcelona");
+        finnAirPage.searcResultsCheck();
         String currentUrl;
         currentUrl = finnAirPage.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("barcelona"),

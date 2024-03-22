@@ -24,34 +24,10 @@ public abstract class AbstractNGTest {
         driver.quit();
     }
 
-//    @BeforeTest
-//    public void beforeEachTestPack() {
-//        System.out.println("Starting test package....");
-//    }
-//
-//    @AfterTest
-//    public void afterEachTestPack() {
-//        System.out.println("Ending test package....");
-//    }
-//
-//    @BeforeClass
-//    public void beforeEachClass() {
-//        System.out.println("-----------------------");
-//    }
-//
-//    @AfterClass
-//    public void afterEachClass() {
-//        System.out.println("########################");
-//    }
-
     @BeforeMethod
     public void beforeMethod() {
         driver.get("about:blank");
         googlePage.loadPage();
         googlePage.acceptCookiesIfPresent();
     }
-
-//    @AfterMethod
-//    public void afterMethod() {
-//    }
 }

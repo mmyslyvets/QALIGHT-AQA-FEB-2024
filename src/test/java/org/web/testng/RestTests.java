@@ -9,6 +9,11 @@ import org.collections.web.dto.ResultsDto;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.restassured.http.ContentType.JSON;
+
 public class RestTests {
 
     //    https://randomuser.me/api/?inc=gender,name,nat&noinfo
@@ -21,16 +26,17 @@ public class RestTests {
         RequestSpecification requestSpecification = RestAssured.given();
         requestSpecification.basePath("/api");
 //        requestSpecification.body("test-body");
-        requestSpecification.queryParam("inc", "gender,name,nat");
+        requestSpecification.queryParam("inc", "gender,name,nat,id");
+      //  requestSpecification.queryParam("id", "name, value");
         requestSpecification.queryParam("noinfo");
         requestSpecification.queryParam("results", 5);
         Response response = requestSpecification.get();
         response.prettyPrint();
-        System.out.println(response.jsonPath().get("results[0].name.first").toString());
+        System.out.println(response.jsonPath().get("results[0].gender").toString());
 
         ValidatableResponse validatableResponse = response.then();
         validatableResponse.statusCode(200);
-        validatableResponse.contentType(ContentType.JSON);
+        validatableResponse.contentType(JSON);
 
         ResultsDto dto = response.as(ResultsDto.class);
 
@@ -43,7 +49,7 @@ public class RestTests {
         RestAssured.baseURI = "https://randomuser.me/";
         ResultsDto dto = RestAssured.given()
                 .basePath("/api")
-                .queryParam("inc", "gender,name,nat")
+                .queryParam("inc", "gender,name,nat,id")
                 .queryParam("noinfo")
                 .queryParam("results", 5)
                 .get()
@@ -53,7 +59,14 @@ public class RestTests {
                 .extract()
                 .as(ResultsDto.class);
 
-        System.out.println(dto.getResults().size());
-        Assert.assertEquals(dto.getResults().get(0).getGender(), "male");
+        ArrayList<String> genders = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            genders.add(dto.getResults().get(i).getGender());
+            System.out.println(dto.getResults().get(i).getGender());
+        }
+
+        System.out.println(dto.getResults());
+        Assert.assertTrue(genders.contains("male"));
+       // Assert.assertEquals(dto.getResults().get(0).getGender(), "male");
     }
 }

@@ -66,7 +66,7 @@ public class RestTests {
         }
 
         System.out.println(dto.getResults());
-        Assert.assertTrue(genders.contains("male"));
+        Assert.assertTrue(genders.contains("female"));
        // Assert.assertEquals(dto.getResults().get(0).getGender(), "male");
     }
 }

@@ -60,7 +60,7 @@ public class RestTests {
                 .as(ResultsDto.class);
 
         ArrayList<String> genders = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < dto.getResults().size(); i++){
             genders.add(dto.getResults().get(i).getGender());
             System.out.println(dto.getResults().get(i).getGender());
         }

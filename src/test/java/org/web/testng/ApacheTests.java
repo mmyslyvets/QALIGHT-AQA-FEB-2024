@@ -36,4 +36,14 @@ public class ApacheTests {
     public ObjectMapper mapper() {
         return new ObjectMapper();
     }
+
+
+    @Test
+    public void testFormat(){
+        System.out.println(String.format("this sybol is replaced: %s, %s", "a", "a"));
+        System.out.println(String.format("this sybol is replaced: %s, %s", "b", "a"));
+        System.out.println(String.format("this sybol is replaced: %s, %s", "c", "a"));
+        System.out.println(String.format("this sybol is replaced: %s, %s", "d", "a"));
+        System.out.println(String.format("this sybol is replaced: %s, %s", "e", "a"));
+    }
 }

@@ -1,5 +1,7 @@
 package org.web.testng;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -39,7 +41,7 @@ public class RestTests {
     }
 
     @Test
-    public void testRestAssuredImproved() {
+    public void testRestAssuredImproved() throws JsonProcessingException {
         RestAssured.baseURI = "https://randomuser.me/";
         ResultsDto dto = RestAssured.given()
                 .basePath("/api")

@@ -10,8 +10,15 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ApacheTests {
+
+    private List<String> someList = new ArrayList<>();
 
     @Test
     public void testApacheClient() throws IOException, URISyntaxException {
@@ -39,11 +46,46 @@ public class ApacheTests {
 
 
     @Test
-    public void testFormat(){
-        System.out.println(String.format("this sybol is replaced: %s, %s", "a", "a"));
-        System.out.println(String.format("this sybol is replaced: %s, %s", "b", "a"));
-        System.out.println(String.format("this sybol is replaced: %s, %s", "c", "a"));
-        System.out.println(String.format("this sybol is replaced: %s, %s", "d", "a"));
-        System.out.println(String.format("this sybol is replaced: %s, %s", "e", "a"));
+    public void testFormat() {
+        Map<String, String> sMap = new HashMap<>();
+        //key1
+        sMap.put("key1", "value1");
+        sMap.put("key2", "value2");
+        sMap.put("key3", "value3");
+        sMap.put("key11", "value11");
+        sMap.put("key12", "value12");
+        sMap.put("key13", "value13");
+        sMap.put("key14", "a_value13");
+
+        sMap.entrySet().stream()
+                .filter(entry -> entry.getKey().contains("key1"))
+                .forEach(entry -> System.out.println(entry.getValue()));
+
+        System.out.println(sMap.values().stream().anyMatch(v -> v.contains("11")));
+        System.out.println(sMap.values().stream().allMatch(v -> v.startsWith("value")));
+
+        String result = sMap.values()
+                .stream()
+                .map(v -> "prefix_" + v)
+                .collect(Collectors.joining(","));
+        System.out.println(result);
+
+        List<String> list = sMap.values().stream().map(v -> {
+            someList.add(v);
+            return  "a" + v;
+        }).toList();
+
+//        List<String> values = new ArrayList<>();
+
+
+//        for (Map.Entry<String, String> e : sMap.entrySet()) {
+//            if (e.getKey().contains("key1")) {
+//                values.add(e.getValue());
+//            }
+//        }
+//
+//        for (String s : values) {
+//            System.out.println(s);
+//        }
     }
 }

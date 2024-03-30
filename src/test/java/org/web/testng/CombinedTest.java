@@ -5,15 +5,15 @@ import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
 import org.collections.web.dto.PersonDto;
 import org.collections.web.dto.ResultsDto;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 
 public class CombinedTest extends AbstractNGTest {
 
@@ -40,13 +40,39 @@ public class CombinedTest extends AbstractNGTest {
 
     @Test
     public void getAndStorePerson() {
-        List<PersonDto> personDtos = getRandomPerson(2);
-        for (PersonDto dto : personDtos) {
-            storeInDb(dto);
+        getRandomPerson(2).forEach(p -> storeInDb(p));
+        Optional<String> randomPerson = pickRandomPersonFromDB();
+
+        if (randomPerson.isEmpty()) {
+            Assert.fail("Could not extract random person from DB");
         }
+
+        googlePage.setSearchText(randomPerson.get());
+        googlePage.performSearch();
+        Assert.assertTrue(
+                googlePage.getSearchHeaders()
+                        .stream()
+                        .anyMatch(
+                                we -> we.getText().toUpperCase().contains(randomPerson.get().toUpperCase())
+                        ), "No person with this name found! " + randomPerson.get()
+        );
     }
 
-//    FirstName, LastName, Gender, Title, Nat
+    private Optional<String> pickRandomPersonFromDB() {
+        Optional<String> result = Optional.empty();
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Persons ORDER BY RAND() LIMIT 1");
+            while (resultSet.next()) {
+                result = Optional.ofNullable(String.format("%s %s",
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName")));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
     private void storeInDb(PersonDto dto) {
         try {
             statement.execute(String.format(INSERT_BASE,

@@ -1,11 +1,14 @@
 package org.web.testng;
 
+import lombok.SneakyThrows;
 import org.collections.web.driver.WebDriverFactory;
 import org.collections.web.page.FinnAirPage;
 import org.collections.web.page.GooglePage;
 import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
+
+import java.sql.Connection;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,30 +27,11 @@ public abstract class AbstractNGTest {
         finnAirPage = new FinnAirPage(driver);
     }
 
+    @SneakyThrows
     @AfterSuite
     public void tearDown() {
         driver.quit();
     }
-
-//    @BeforeTest
-//    public void beforeEachTestPack() {
-//        System.out.println("Starting test package....");
-//    }
-//
-//    @AfterTest
-//    public void afterEachTestPack() {
-//        System.out.println("Ending test package....");
-//    }
-//
-//    @BeforeClass
-//    public void beforeEachClass() {
-//        System.out.println("-----------------------");
-//    }
-//
-//    @AfterClass
-//    public void afterEachClass() {
-//        System.out.println("########################");
-//    }
 
     @BeforeMethod
     public void beforeMethod() {
@@ -55,8 +39,4 @@ public abstract class AbstractNGTest {
         googlePage.loadPage();
         googlePage.acceptCookiesIfPresent();
     }
-
-//    @AfterMethod
-//    public void afterMethod() {
-//    }
 }

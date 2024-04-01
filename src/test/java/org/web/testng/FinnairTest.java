@@ -1,11 +1,16 @@
 package org.web.testng;
 
+import org.collections.web.page.FinnAirPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Objects;
+
 public class FinnairTest extends AbstractNGTest {
 
-    //TODO 1: add new table flight dest (City name, price tag)
+    // TODO 1: add new table flight dest (City name, price tag)
     // TODO 2: open https://www.finnair.com/en/destinations?country=fi
     // TODO 3: tae four top destinations and for each:
     // TODO 3.1: If record for this dest is already in DB, compare price.
@@ -38,8 +43,7 @@ public class FinnairTest extends AbstractNGTest {
         }
         finnAirPage.search("barcelona");
         finnAirPage.searcResultsCheck();
-        String currentUrl;
-        currentUrl = finnAirPage.getCurrentUrl();
+        String currentUrl = finnAirPage.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("barcelona"),
                 "Expected to be at barcelona, but was at " + currentUrl);
     }
@@ -63,5 +67,60 @@ public class FinnairTest extends AbstractNGTest {
         paserror = finnAirPage.getPassError();
         Assert.assertTrue(nameerror.contains("Email address or Finnair Plus number is required"), "Expected to be Email address or Finnair Plus number is required, but was a" + paserror);
         Assert.assertTrue(paserror.contains("Password is required"), "Expected Password is required, but was a" + paserror);
+    }
+
+//    @Test
+//    public void checkAndSaveDest(){
+//        googlePage.setSearchText("finnair");
+//        googlePage.feelingLucky();
+//        finnAirPage.localSetUp();
+//        if (finnAirPage.isElementVisible()) {
+//            finnAirPage.coockieModalClose();
+//        }
+//        finnAirPage.openFinlandDestination();
+//        finnAirPage.getDest(4);
+//        finnAirPage.storeInFlightDest(4);
+//        //System.out.println(finnAirPage.getDest(4));
+//    }
+
+    @Test
+    public void checkAndSaveDest_update() throws SQLException {
+        googlePage.setSearchText("finnair");
+        googlePage.feelingLucky();
+        finnAirPage.localSetUp();
+        if (finnAirPage.isElementVisible()) {
+            finnAirPage.coockieModalClose();
+        }
+        finnAirPage.openFinlandDestination();
+
+        Map<String, Float> flights = finnAirPage.getFlights(4);
+        assertCityPrice(flights);
+
+    }
+
+    private void assertCityPrice(Map<String, Float> flights) throws SQLException {
+        for (Map.Entry<String, Float> e : flights.entrySet()) {
+            String cityName = e.getKey();
+            Float price = e.getValue();
+
+            Map<String, Float> persistenceData = finnAirPage.loadPrice(cityName);
+            if (!persistenceData.containsKey(cityName)) {
+                // TODO 3.2
+                finnAirPage.insertToDb(cityName, price);
+                continue;
+            }
+
+            Float persistencePrice = persistenceData.get(cityName);
+
+            // TODO 3.1
+            if (price.equals(persistencePrice)) {
+                // 3.1.2
+                continue;
+            }
+
+            // 3.1.1
+            finnAirPage.updateCity(cityName, price);
+            Assert.fail("Price was updated and fail test");
+        }
     }
 }

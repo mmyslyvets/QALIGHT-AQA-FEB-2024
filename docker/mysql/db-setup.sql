@@ -8,6 +8,13 @@ CREATE TABLE Persons (
                          PRIMARY KEY(PersonID)
 );
 
+CREATE TABLE FLIGHT_DEST (
+    DEST_ID int UNIQUE AUTO_INCREMENT NOT NULL,
+    CityName varchar(255) NOT NULL,
+    PriceTag varchar(255) not null,
+    PRIMARY KEY(DEST_ID)
+);
+
 SELECT * from Persons;
 
 INSERT INTO Persons (FirstName, LastName, Gender, Title, Nat) VALUES ('Jane', 'Doe', 'female', 'Mrs', 'US');

@@ -8,9 +8,9 @@ import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 
-import java.util.concurrent.TimeUnit;
+import static org.collections.web.page.FinnAirPage.connection;
 
 public abstract class AbstractNGTest {
 
@@ -18,6 +18,8 @@ public abstract class AbstractNGTest {
     protected GooglePage googlePage;
     protected WikiPage wikiPage;
     protected FinnAirPage finnAirPage;
+
+
 
     @BeforeSuite
     public void setUp() {
@@ -32,11 +34,26 @@ public abstract class AbstractNGTest {
     public void tearDown() {
         driver.quit();
     }
+    public void disonnectFromDB() throws SQLException {
+        if (connection != null) {
+            connection.close();
+        }
+    }
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void beforeMethod() throws SQLException, ClassNotFoundException {
         driver.get("about:blank");
         googlePage.loadPage();
         googlePage.acceptCookiesIfPresent();
+        try {
+            finnAirPage.initDBConnect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void setUpDB() throws SQLException, ClassNotFoundException {
+        finnAirPage.initDBConnect();
     }
 }

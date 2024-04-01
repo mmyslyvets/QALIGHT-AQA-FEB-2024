@@ -2,16 +2,17 @@ package org.web.testng;
 
 import lombok.SneakyThrows;
 import org.collections.web.driver.WebDriverFactory;
+import org.collections.web.page.DbMethods;
 import org.collections.web.page.FinnAirPage;
 import org.collections.web.page.GooglePage;
 import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
+
 
 import java.sql.SQLException;
 
-import static org.collections.web.page.FinnAirPage.connection;
+import static org.collections.web.page.DbMethods.connection;
 
 public abstract class AbstractNGTest {
 
@@ -19,6 +20,7 @@ public abstract class AbstractNGTest {
     protected GooglePage googlePage;
     protected WikiPage wikiPage;
     protected FinnAirPage finnAirPage;
+    protected DbMethods dbMethods;
 
 
 
@@ -28,6 +30,7 @@ public abstract class AbstractNGTest {
         googlePage = new GooglePage(driver);
         wikiPage = new WikiPage(driver);
         finnAirPage = new FinnAirPage(driver);
+        dbMethods = new DbMethods(driver);
     }
 
     @SneakyThrows
@@ -47,7 +50,7 @@ public abstract class AbstractNGTest {
         googlePage.loadPage();
         googlePage.acceptCookiesIfPresent();
         try {
-            finnAirPage.initDBConnect();
+            dbMethods.initDBConnect();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -55,6 +58,6 @@ public abstract class AbstractNGTest {
         }
     }
     public void setUpDB() throws SQLException, ClassNotFoundException {
-        finnAirPage.initDBConnect();
+        dbMethods.initDBConnect();
     }
 }

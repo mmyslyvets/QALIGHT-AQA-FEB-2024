@@ -81,7 +81,7 @@ public class FinnairTest extends AbstractNGTest {
         }
         finnAirPage.openFinlandDestination();
 
-        Map<String, Float> flights = finnAirPage.getFlights(4);
+        Map<String, Float> flights = dbMethods.getFlights(4);
         assertCityPrice(flights);
 
     }
@@ -92,10 +92,10 @@ public class FinnairTest extends AbstractNGTest {
             String cityName = e.getKey();
             Float price = e.getValue();
 
-            Map<String, Float> persistenceData = finnAirPage.loadPrice(cityName);
+            Map<String, Float> persistenceData = dbMethods.loadPrice(cityName);
             if (!persistenceData.containsKey(cityName)) {
                 // TODO 3.2
-                finnAirPage.insertToDb(cityName, price);
+                dbMethods.insertToDb(cityName, price);
                 continue;
             }
 
@@ -108,7 +108,7 @@ public class FinnairTest extends AbstractNGTest {
             }
 
             // 3.1.1
-            finnAirPage.updateCity(cityName, price);
+            dbMethods.updateCity(cityName, price);
             softAssert.fail("Price was updated and fail test");
         }
         softAssert.assertAll();

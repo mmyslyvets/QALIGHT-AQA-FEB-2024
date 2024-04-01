@@ -7,6 +7,7 @@ import org.collections.web.page.GooglePage;
 import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 import java.sql.SQLException;
 

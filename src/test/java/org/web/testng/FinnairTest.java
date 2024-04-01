@@ -3,6 +3,7 @@ package org.web.testng;
 import org.collections.web.page.FinnAirPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -69,19 +70,6 @@ public class FinnairTest extends AbstractNGTest {
         Assert.assertTrue(paserror.contains("Password is required"), "Expected Password is required, but was a" + paserror);
     }
 
-//    @Test
-//    public void checkAndSaveDest(){
-//        googlePage.setSearchText("finnair");
-//        googlePage.feelingLucky();
-//        finnAirPage.localSetUp();
-//        if (finnAirPage.isElementVisible()) {
-//            finnAirPage.coockieModalClose();
-//        }
-//        finnAirPage.openFinlandDestination();
-//        finnAirPage.getDest(4);
-//        finnAirPage.storeInFlightDest(4);
-//        //System.out.println(finnAirPage.getDest(4));
-//    }
 
     @Test
     public void checkAndSaveDest_update() throws SQLException {
@@ -99,6 +87,7 @@ public class FinnairTest extends AbstractNGTest {
     }
 
     private void assertCityPrice(Map<String, Float> flights) throws SQLException {
+        SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, Float> e : flights.entrySet()) {
             String cityName = e.getKey();
             Float price = e.getValue();
@@ -120,7 +109,8 @@ public class FinnairTest extends AbstractNGTest {
 
             // 3.1.1
             finnAirPage.updateCity(cityName, price);
-            Assert.fail("Price was updated and fail test");
+            softAssert.fail("Price was updated and fail test");
         }
+        softAssert.assertAll();
     }
 }

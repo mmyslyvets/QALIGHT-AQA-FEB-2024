@@ -37,7 +37,7 @@ public class FinnAirPage extends AbstractPage {
 
     public FinnAirPage(WebDriver driver) {
         super(driver, FINNAIR_URL);
-        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void localSetUp() {

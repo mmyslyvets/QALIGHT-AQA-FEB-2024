@@ -94,20 +94,16 @@ public class FinnairTest extends AbstractNGTest {
 
             Map<String, Float> persistenceData = dbMethods.loadPrice(cityName);
             if (!persistenceData.containsKey(cityName)) {
-                // TODO 3.2
                 dbMethods.insertToDb(cityName, price);
                 continue;
             }
 
             Float persistencePrice = persistenceData.get(cityName);
 
-            // TODO 3.1
             if (price.equals(persistencePrice)) {
-                // 3.1.2
                 continue;
             }
 
-            // 3.1.1
             dbMethods.updateCity(cityName, price);
             softAssert.fail("Price was updated and fail test");
         }

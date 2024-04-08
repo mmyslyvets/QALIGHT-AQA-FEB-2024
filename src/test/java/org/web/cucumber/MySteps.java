@@ -57,4 +57,11 @@ public class MySteps {
                 "No person with this name found! " + name
         );
     }
+
+    @Given("I google the {string} Page")
+    public void openeFinnairPageThroughGoogle(String alias){
+        googlePage.setSearchText(alias);
+        googlePage.performSearch();
+        googlePage.getSearchHeaders().get(0).click();
+    }
 }

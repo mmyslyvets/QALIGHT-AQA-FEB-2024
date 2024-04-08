@@ -5,6 +5,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import lombok.SneakyThrows;
 import org.collections.web.driver.WebDriverFactory;
+import org.collections.web.page.FinnAirPage;
 import org.collections.web.page.GooglePage;
 import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +31,7 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
     public void setUp() {
         driver = WebDriverFactory.getDriver();
         MySteps.googlePage = new GooglePage(driver);
+        FinnairSteps.finnAirPage = new FinnAirPage(driver);
     }
 
     @SneakyThrows

@@ -32,7 +32,9 @@ public class FinnAirPage extends AbstractPage {
     public final static By MENU_BUTTON = By.xpath("//*[text() = 'Menu']");
     public final static By FINLAND_BUTTON = By.xpath("//*[text() = ' Finland ']");
     public final static By DEST_BUTTON = By.xpath("//*[text() = ' Destinations & offers ']");
-
+    public final static By CITY_NAME = By.xpath("//*[@id=\"search-result-wrapper\"]//a/h3");
+    public final static By CITY_PRICE = By.xpath("//*[@id=\"search-result-wrapper\"]//section[2]/a/span");
+    public static Map<String, Float> getFlights2;
 
 
     public FinnAirPage(WebDriver driver) {
@@ -65,7 +67,7 @@ public class FinnAirPage extends AbstractPage {
 
     public boolean isElementVisible() {
         try {
-            WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(20))).until(ExpectedConditions.presenceOfElementLocated(COOKIES_BUTTON_FORM_XPATH));
+            WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(30))).until(ExpectedConditions.presenceOfElementLocated(COOKIES_BUTTON_FORM_XPATH));
             return true;
         } catch (org.openqa.selenium.TimeoutException e) {
             return false;
@@ -109,6 +111,24 @@ public class FinnAirPage extends AbstractPage {
         destButton.click();
         WebElement finlandDest = driver.findElement(FINLAND_BUTTON);
         finlandDest.click();
+    }
+
+    public Map<String, Float> getFlightsprices(int limit) {
+        List<WebElement> cityNames = new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(CITY_NAME));
+        List<WebElement> prices = new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(CITY_PRICE));
+
+
+        Map<String, Float> data = new HashMap<>();
+        for (int idx = 0; idx < limit; idx++) {
+            String cityName = cityNames.get(idx).getText();
+
+            String rawPrice = prices.get(idx).getText().split(" ")[0];
+            Float price = Float.parseFloat(rawPrice);
+
+            data.put(cityName, price);
+        }
+
+        return data;
     }
 
 }

@@ -5,7 +5,11 @@ import org.collections.web.dto.IConvertible;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.lang.String.format;
 
 public class DbUtil {
 
@@ -18,6 +22,8 @@ public class DbUtil {
 
     private final static String INSERT_FLIGHT =
             "INSERT INTO FlightData (CityName, FlightCost) VALUES ('%s', '%s')";
+
+    private final static String LOAD_CITY_INFORMATION = "Select CITY_NAME, PRICE from FlightDest where CITY_NAME = '%s'";
 
     @SneakyThrows
     public static void storeInDB(String sql) {
@@ -60,5 +66,27 @@ public class DbUtil {
                 "password"
         );
         statement = connection.createStatement();
+    }
+
+    public static Map<String, Float> loadPrice(String city) throws SQLException {
+        Map<String, Float> dbData = new HashMap<>();
+        try {
+            getDBConnection();
+        ResultSet resultSet = statement.executeQuery(format(LOAD_CITY_INFORMATION, city));
+
+        while (resultSet.next()) {
+            String cityName = resultSet.getString("CITY_NAME");
+            Float price = resultSet.getFloat("PRICE");
+            dbData.put(cityName, price);
+        }
+        }catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+
+        return dbData;
     }
 }

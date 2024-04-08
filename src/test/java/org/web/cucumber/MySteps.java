@@ -58,10 +58,10 @@ public class MySteps {
         );
     }
 
-    @Given("I google the {string} Page")
-    public void openeFinnairPageThroughGoogle(String alias){
-        googlePage.setSearchText(alias);
-        googlePage.performSearch();
-        googlePage.getSearchHeaders().get(0).click();
-    }
+//    @Given("I google the {string} Page")
+//    public void openeFinnairPageThroughGoogle(String alias){
+//        googlePage.setSearchText(alias);
+//        googlePage.performSearch();
+//        googlePage.getSearchHeaders().get(0).click();
+//    }
 }

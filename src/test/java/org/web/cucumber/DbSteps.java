@@ -3,8 +3,6 @@ package org.web.cucumber;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.collections.web.dto.PersonDto;
-import org.collections.web.page.DbMethods;
-import org.collections.web.page.FinnAirPage;
 import org.collections.web.util.CucumberContainer;
 import org.collections.web.util.DbUtil;
 import org.testng.asserts.SoftAssert;
@@ -21,8 +19,7 @@ public class DbSteps {
     private final static String INSERT_BASE = "INSERT INTO FlightDest (CITY_NAME, PRICE) VALUES ('%s', %s)";
     private final static String LOAD_CITY_INFORMATION = "Select CITY_NAME, PRICE from FlightDest where CITY_NAME = '%s'";
     private final static String UPDATE_CITY_PRICE = "UPDATE FlightDest SET PRICE = %s WHERE CITY_NAME = '%s'";
-   // Map<String, Float> flights = FinnAirPage.getFlights2;
-   // public static FinnAirPage finnAirPage;
+
 
     @Given("I pick a random person from DB as {string}")
     public void pickRandomPerson(String alias) {
@@ -33,7 +30,7 @@ public class DbSteps {
                 randomPerson.getName().getFirst() + " " + randomPerson.getName().getLast());
     }
 
-    @Then("I store to db new flight to {int} cities or flight with updated prices")
+    @Then("I store to db new flight of {int} cities or flight with updated prices")
     public  void assertCityPrice(int alias) throws SQLException {
         Map<String, Float> flights = finnAirPage.getFlightsprices(alias);
         SoftAssert softAssert = new SoftAssert();

@@ -6,10 +6,8 @@ import io.cucumber.testng.CucumberOptions;
 import lombok.SneakyThrows;
 import org.collections.web.driver.WebDriverFactory;
 import org.collections.web.page.GooglePage;
-import org.collections.web.page.WikiPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 @CucumberOptions(
@@ -30,6 +28,7 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
     public void setUp() {
         driver = WebDriverFactory.getDriver();
         MySteps.googlePage = new GooglePage(driver);
+        WebSteps.driver = driver;
     }
 
     @SneakyThrows

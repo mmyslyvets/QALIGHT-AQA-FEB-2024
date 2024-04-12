@@ -9,4 +9,9 @@ public class WikiPage extends AbstractPage {
     public WikiPage(WebDriver driver) {
         super(driver, WIKI_URL);
     }
+
+    /**
+     * 1,2,3,4,5;
+     *
+     */
 }

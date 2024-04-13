@@ -1,5 +1,6 @@
 Feature: Test API DB Google integration
 
+  @severity=critical
   Scenario Outline: Search Random Person in Google
     Given I request <count> random persons from API as "mob1"
     Given I store group "mob1" in my DB
@@ -13,6 +14,7 @@ Feature: Test API DB Google integration
       | 2     |
       | 3     |
 
+  @severity=minor
   Scenario: Search Random Person in Google
     Given I load "https://google.com/"
     Given I click button with selector GOOGLE_COOKIES_BTNS with index 3
@@ -21,6 +23,7 @@ Feature: Test API DB Google integration
     Then I can see at least 3 GOOGLE_SEARCH_HEADERS elements containing text "Ben Affleck"
 
 
+  @severity=trivial
   Scenario: Read List and Map
     Given I read from data table as List:
     |a|

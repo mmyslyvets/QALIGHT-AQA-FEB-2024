@@ -73,7 +73,7 @@ public class ApacheTests {
         List<String> list = sMap.values().stream().map(v -> {
             someList.add(v);
             return  "a" + v;
-        }).toList();
+        }).collect(Collectors.toList());
 
 //        List<String> values = new ArrayList<>();
 

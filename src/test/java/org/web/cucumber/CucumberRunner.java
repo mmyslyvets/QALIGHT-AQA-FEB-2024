@@ -16,8 +16,8 @@ import org.testng.annotations.BeforeSuite;
         glue = "org.web.cucumber",
         plugin = {"pretty",
                 "json:target/cucumber-reports/Cucumber.json",
-                "html:target/cucumber-report.html"
-//                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+                "html:target/cucumber-report.html",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         }
 )
 public class CucumberRunner extends AbstractTestNGCucumberTests {

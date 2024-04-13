@@ -21,6 +21,9 @@ public class WebDriverFactory {
         switch (driverTypeFromProps) {
             case "JENKINS":
                 return new RemoteWebDriver(
+                        new URL("http://selenoid-selenoid-1:4444/wd/hub"), remoteOptions());
+            case "REMOTE":
+                return new RemoteWebDriver(
                         new URL("http://localhost:4444/wd/hub"), remoteOptions());
             case "EDGE":
                 return new EdgeDriver();

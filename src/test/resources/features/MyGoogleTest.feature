@@ -1,5 +1,6 @@
 Feature: Test API DB Google integration
-#  @my-new-test
+
+  @severity=critical
   Scenario Outline: Search Random Person in Google
     Given I request <count> random persons from API as "mob1"
     Given I store group "mob1" in my DB
@@ -13,11 +14,21 @@ Feature: Test API DB Google integration
       | 2     |
       | 3     |
 
-#  Scenario: Search Random Person in Google
-#    Given I reqeust a random person from API
-#    Given I store random person from API in my DB
-#    Given I load "https://google.com/"
-#    Given I click "accept_cookies_xpath"
-#    When I set element "search_input_xpath" text to "some_name"
-#    When I click "search_button_xpath"
-#    Then I can see at least 3 "headers_with_text_xpath" elements
+  @severity=minor
+  Scenario: Search Random Person in Google
+    Given I load "https://google.com/"
+    Given I click button with selector GOOGLE_COOKIES_BTNS with index 3
+    When I set text for element GOOGLE_SEARCH_INPUT to "Ben Affleck"
+    When I send key ENTER to GOOGLE_SEARCH_INPUT element
+    Then I can see at least 3 GOOGLE_SEARCH_HEADERS elements containing text "Ben Affleck"
+
+
+  @severity=trivial
+  Scenario: Read List and Map
+    Given I read from data table as List:
+    |a|
+    |b|
+    |c|
+    |d|
+    |e|
+

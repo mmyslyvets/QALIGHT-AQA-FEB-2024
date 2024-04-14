@@ -13,6 +13,9 @@ import static java.lang.String.format;
 
 public class DbUtil {
 
+    private final static String ENV_TYPE = System.getProperty("driver.type", "CHROME");
+    private final static String ENV_TYPE_JENKINS = "JENKINS";
+
     private static Connection connection;
     private static Statement statement;
 
@@ -59,9 +62,17 @@ public class DbUtil {
     }
 
     private static void getDBConnection() throws SQLException, ClassNotFoundException {
+        String hostName;
+
+        if (ENV_TYPE_JENKINS.equals(ENV_TYPE)) {
+            hostName = "jdbc:mysql://mysql-db-1:3306/db";
+        } else {
+            hostName = "jdbc:mysql://localhost:3306/db";
+        }
+
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/db",
+                hostName,
                 "user",
                 "password"
         );

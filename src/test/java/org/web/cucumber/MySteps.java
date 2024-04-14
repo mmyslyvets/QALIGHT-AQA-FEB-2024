@@ -3,10 +3,7 @@ package org.web.cucumber;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.collections.web.dto.PersonDto;
-import org.collections.web.dto.ResultsDto;
 import org.collections.web.page.GooglePage;
 import org.collections.web.util.CucumberContainer;
 import org.collections.web.util.DbUtil;
@@ -19,7 +16,6 @@ import static org.testng.Assert.assertNotNull;
 public class MySteps {
 
     public static GooglePage googlePage;
-
 
 
     @Given("I store group {string} in my DB")

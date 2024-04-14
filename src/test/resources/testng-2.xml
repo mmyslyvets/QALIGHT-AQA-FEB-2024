@@ -7,15 +7,7 @@
         <classes>
             <!--BeforeClass-->
             <!--BeforeMethod-->
-            <class name="org.web.testng.GoogleTest"/>
-            <class name="org.web.testng.AlloUaTest"/>
-        </classes>
-    </test>
-    <!--BeforeTest-->
-    <test name="Regression Finnair">
-        <classes>
-            <!--BeforeMethod-->
-            <class name="org.web.testng.FinnairTest"/>
+            <class name="org.web.cucumber.CucumberRunner"/>
         </classes>
     </test>
 </suite>

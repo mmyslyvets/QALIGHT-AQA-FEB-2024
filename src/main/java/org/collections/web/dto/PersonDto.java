@@ -5,6 +5,7 @@ import org.collections.web.util.DbUtil;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -50,7 +51,7 @@ public class PersonDto implements IConvertible {
         List<Object> resultSet =
                 DbUtil.executeSelectStatement(GET_ALL_PERSONS, new PersonDto());
         if (!resultSet.isEmpty()) {
-            return resultSet.stream().map(o -> (PersonDto) o).toList();
+            return resultSet.stream().map(o -> (PersonDto) o).collect(Collectors.toList());
         }
         return null;
     }

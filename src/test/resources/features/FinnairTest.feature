@@ -1,5 +1,6 @@
 Feature: Test Finnair page functionality
 
+  @severity=critical
   Scenario: Store\Update Finnair Flights to DB
     Given I load google page
     Given I accept cookies if present

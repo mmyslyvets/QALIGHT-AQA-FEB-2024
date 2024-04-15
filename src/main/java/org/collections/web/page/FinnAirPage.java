@@ -34,6 +34,8 @@ public class FinnAirPage extends AbstractPage {
     public final static By DEST_BUTTON = By.xpath("//*[text() = ' Destinations & offers ']");
     public final static By CITY_NAME = By.xpath("//*[@id=\"search-result-wrapper\"]//a/h3");
     public final static By CITY_PRICE = By.xpath("//*[@id=\"search-result-wrapper\"]//section[2]/a/span");
+    public final static By FINNAIR_PLUS_MODAL = By.xpath("//*[text() = 'Join now']");
+    public final static By FINNAIR_PLUS_MODAL_CLOSE = By.xpath("//*[@id=\"welcome-back-message\"]/div/div/button");
     public static Map<String, Float> getFlights2;
 
 
@@ -131,4 +133,21 @@ public class FinnAirPage extends AbstractPage {
         return data;
     }
 
+    public boolean isFiinairPlusVisible() {
+        try {
+            WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(30))).until(ExpectedConditions.presenceOfElementLocated(FINNAIR_PLUS_MODAL));
+            return true;
+        } catch (org.openqa.selenium.TimeoutException e) {
+            return false;
+        }
+    }
+
+    public void closeJoinFinnairPlus() {
+        if (isFiinairPlusVisible()) {
+            WebElement joinButton = driver.findElement(FINNAIR_PLUS_MODAL_CLOSE);
+            joinButton.click();
+        }
+
+
+    }
 }
